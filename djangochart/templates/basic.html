@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Weather Data</title>
+</head>
+
+<body>
+    {% csrf_token %}
+    {% block content %}
+    <!-- <div id="container" style="width:75%;">
+        <canvas id="pie_chart">
+            << /canvas>
+    </div> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <canvas id="myChart" width="760" height="230"></canvas>
+    <div class="selectBox">
+        <label for="periodsfilter">Select Periods</label>
+        <select id="periodsfilter" onchange="houraxis(this.value)">
+            <option value="Hours">Hours</option>
+            <option value="Days">Days</option>
+            <option value="Month">Month</option>
+
+        </select> 
+    </div>
+    <div class="Filterdata">
+        <label for="filterchart">Select Filter</label>
+        <select  id='filterchart' onchange="filteraxis(this.value)">
+            <option value="Current Hour">Current Hour</option>
+            <option value="Current Day">Current Day</option>
+            <option value="Last n hour">Last n hour</option>
+            <option value="Last n days">Last n days</option>
+        </select>
+    </div>
+    <script>
+var ctx = document.getElementById('myChart').getContext('2d');
+const label_time=['11','12','13','14','15','16','17','18','19','20','21','22','23'];
+const data={{data|safe}};
+const data_1={{data_1|safe}};
+var myChart = new Chart(ctx, {
+    type: 'bar', 
+    data: {
+        labels: label_time,
+        datasets: [{
+            label: 'Chennai',
+            data: data,
+            backgroundColor:'#673AB7',
+            borderColor: '#673AB7',
+            borderWidth: 2,
+            fill:false
+        },{
+            label: 'Toronto',
+            data: data_1,
+            backgroundColor:'brown',
+            borderColor:'brown',
+            borderWidth: 2,
+            fill:false
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+var day_temp={{temp|safe}}
+var day_temp1={{temp1|safe}}
+var val={{data|safe}}
+var val_1={{data_1|safe}}
+const periodsfilter=document.getElementById('periodsfilter');
+periodsfilter.addEventListener('change',houraxis(sam));
+function houraxis(sam)
+{
+    debugger
+  
+    if(sam =='Hours')
+    {
+        myChart.data.labels=['11','12','13','14','15','16','17','18','19','20','21','22','23'];
+        myChart.data.datasets[0].data=val;
+        myChart.data.datasets[1].data=val_1;
+    }
+    else if(sam =='Days')
+    {
+        myChart.data.labels=['21:10:17','21:10:18','21:10:19','21:10:20','21:10:21','21:10:22','21:10:23','21:10:24'];
+        myChart.data.datasets[0].data=day_temp;
+        myChart.data.datasets[1].data=day_temp1;
+    }
+    else{
+        myChart.data.labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'];
+    }
+    myChart.update();
+}
+
+const filterchart=document.getElementById('filterchart');
+filterchart.addEventListener('change',filteraxis(exa));
+function filteraxis(exa)
+{ 
+    debugger
+    var hr=['{{z|safe}}']
+    var lh={{last_n_time|safe}}
+    var cd=['{{current_day|safe}}']
+    var cd_avg=[{{current_day_avg|safe}}]
+    var cd_avg1=[{{current_day_avg1|safe}}]
+    if(exa == "Current Hour")    
+    {
+        myChart.data.labels=hr;
+    }
+    else if(exa == "Current Day")
+    {
+        myChart.data.labels=cd;
+        myChart.data.datasets[0].data=cd_avg;
+        myChart.data.datasets[1].data=cd_avg1;
+    }
+    else if(exa == "Last n hour")
+    {
+        myChart.data.labels=lh;
+    }
+    else
+    {
+        myChart.data.labels=['Oct15','Oct16','oct17','Oct18','Oct19'];
+    }
+    myChart.update();
+}
+</script>
+    {% endblock %}
+</body>
+</html>
