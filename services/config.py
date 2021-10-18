@@ -1,0 +1,1 @@
+weather_website_url="https://api.openweathermap.org/data/2.5/weather?q={}&appid=60eadf0b6c54c2583131f8a0fd769539"
