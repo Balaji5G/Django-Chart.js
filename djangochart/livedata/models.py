@@ -6,19 +6,17 @@ import uuid
 class weather_data(models.Model):
     id=models.UUIDField(primary_key=True,default=uuid.uuid4)
     city=models.CharField(max_length=50)
-    Temperature=models.FloatField(max_length=150)
+    Temperature=models.FloatField(max_length=100)
     Timestamp=models.IntegerField() 
 
     def __str__(self):
         return self.City
 
-class weather_data_hours(models.Model):
+class period(models.Model):
     id=models.UUIDField(primary_key=True,default=uuid.uuid4)
-    city_name=models.CharField(max_length=100)
-    Temperature=models.FloatField(max_length=100)
-    Hours=models.IntegerField()
-
-    
+    name=models.CharField(max_length=100)
+    type=models.CharField(max_length=50)
+    labels=models.CharField(max_length=100)
     
 
 

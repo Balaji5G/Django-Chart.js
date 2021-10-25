@@ -12,12 +12,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='weather_data_hours',
+            name='period',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('city_name', models.CharField(max_length=100)),
-                ('Temperature', models.FloatField(max_length=100)),
-                ('Hours', models.IntegerField()),
+                ('name', models.CharField(max_length=100)),
+                ('type', models.CharField(max_length=100)),
+                ('labels', models.IntegerField()),
             ],
         ),
         migrations.DeleteModel(

@@ -24,8 +24,9 @@ class Migration(migrations.Migration):
             name='period',
             fields=[
                 ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('periodname', models.TextField(max_length=100)),
-                ('type', models.TextField()),
+                ('name', models.CharField(max_length=100)),
+                ('type', models.CharField(max_length=100)),
+                ('labels',models.IntegerField()),
             ],
         ),
     ]
